@@ -9,10 +9,10 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         ArrayList<ProcessInfo> infos = Process.getProcesses();
-//        for (ProcessInfo info : infos) {
-//            System.out.printf("PID: %d, ; Owner: %s ; Name: %s, Path: %s, Command Line: %s %n",
-//                        info.pid,info.owner, info.name, info.exe, info.cmdLine);
-//        }
+        for (ProcessInfo info : infos) {
+            System.out.printf("PID: %d; Owner: %s ; Name: %s; Arch: %s;  Path: %s; Command Line: %s %n",
+                    info.pid,info.owner, info.name,info.arch,  info.exe, info.cmdLine);
+        }
 
     }
 

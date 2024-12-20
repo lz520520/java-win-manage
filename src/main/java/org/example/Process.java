@@ -45,10 +45,10 @@ public class Process {
                 info.exe = processPath;
                 info.cmdLine = commandLine;
                 info.owner = owner;
+                info.arch = getArch(processId);
                 info.sessionID = getSession(processId);
                 infos.add(info);
-                System.out.printf("PID: %d, ; Owner: %s ; Name: %s, Path: %s, Command Line: %s %n",
-                        info.pid,info.owner, info.name, info.exe, info.cmdLine);
+
 
 
             } while (Kernel32.INSTANCE.Process32Next(snapshot, processEntry));
@@ -232,7 +232,33 @@ public class Process {
         return account;
     }
 
+    public static String getArch(int pid) {
+        String arch = "";
+        WinNT.HANDLE hProcess = null;
+        try {
+            hProcess = Kernel32.INSTANCE.OpenProcess(WinNT.PROCESS_QUERY_INFORMATION /* PROCESS_QUERY_INFORMATION */, false, pid);
+            if (hProcess == null) {
+                hProcess = Kernel32.INSTANCE.OpenProcess(WinNT.PROCESS_QUERY_LIMITED_INFORMATION /* PROCESS_QUERY_INFORMATION */, false, pid);
+            }
+            IntByReference isWow64 = new IntByReference();
 
+            if (Kernel32.INSTANCE.IsWow64Process(hProcess, isWow64)) {
+                if (isWow64.getValue() != 0) {
+                    arch = "x86";
+                } else {
+                    arch = "x86_64";
+                }
+            }
+
+        }catch (Exception ignored) {
+
+        }finally {
+            if (hProcess != null){
+                Kernel32.INSTANCE.CloseHandle(hProcess);
+            }
+        }
+        return arch;
+    }
     public static boolean enableDebugPrivilege() {
         boolean status = false;
         WinNT.HANDLEByReference phToken = null;
