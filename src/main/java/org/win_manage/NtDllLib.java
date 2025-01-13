@@ -3,7 +3,7 @@
  * @date 2024/12/19 16:48
  */
 
-package org.example;
+package org.win_manage;
 
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.WinNT;

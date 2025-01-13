@@ -3,7 +3,7 @@
  * @date 2024/12/19 15:38
  */
 
-package org.example;
+package org.win_manage;
 
 import com.sun.jna.Memory;
 import com.sun.jna.Native;

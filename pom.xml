@@ -39,7 +39,7 @@
 <!--                    <finalName>${project.artifactId}-${project.version}</finalName>-->
                     <archive>
                         <manifest>
-                            <mainClass>org.example.Main</mainClass>
+                            <mainClass>org.win_manage.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
