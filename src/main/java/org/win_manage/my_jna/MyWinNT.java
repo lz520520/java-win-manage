@@ -3,7 +3,7 @@
  * @date 2024/12/19 16:53
  */
 
-package org.win_manage;
+package org.win_manage.my_jna;
 
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
@@ -12,9 +12,37 @@ import java.util.List;
 
 
 public interface MyWinNT extends com.sun.jna.platform.win32.WinNT {
+    int TCP_TABLE_BASIC_LISTENER = 0;
+    int TCP_TABLE_BASIC_CONNECTIONS = 1;
+    int TCP_TABLE_BASIC_ALL = 2;
+    int TCP_TABLE_OWNER_PID_LISTENER = 3;
+    int TCP_TABLE_OWNER_PID_CONNECTIONS = 4;
+    int TCP_TABLE_OWNER_PID_ALL = 5;
+    int TCP_TABLE_OWNER_MODULE_LISTENER = 6;
+    int TCP_TABLE_OWNER_MODULE_CONNECTIONS = 7;
+    int TCP_TABLE_OWNER_MODULE_ALL  = 8;
 
 
-   public static  class PROCESS_BASIC_INFORMATION extends Structure {
+
+    /*
+     * WIN32_WINNT version constants
+     */
+    short WIN32_WINNT_NT4 = 0x0400; // Windows NT 4.0
+    short WIN32_WINNT_WIN2K = 0x0500; // Windows 2000
+    short WIN32_WINNT_WINXP = 0x0501; // Windows XP
+    short WIN32_WINNT_WS03 = 0x0502; // Windows Server 2003
+    short WIN32_WINNT_WIN6 = 0x0600; // Windows Vista
+    short WIN32_WINNT_VISTA = 0x0600; // Windows Vista
+    short WIN32_WINNT_WS08 = 0x0600; // Windows Server 2008
+    short WIN32_WINNT_LONGHORN = 0x0600; // Windows Vista
+    short WIN32_WINNT_WIN7 = 0x0601; // Windows 7
+    short WIN32_WINNT_WIN8 = 0x0602; // Windows 8
+    short WIN32_WINNT_WINBLUE = 0x0603; // Windows 8.1
+    short WIN32_WINNT_WINTHRESHOLD = 0x0A00; // Windows 10
+    short WIN32_WINNT_WIN10 = 0x0A00; // Windows 10
+
+
+   class PROCESS_BASIC_INFORMATION extends Structure {
 
         public static final List<String> FIELDS = createFieldsOrder("ExitStatus", "PebBaseAddress", "AffinityMask","BasePriority", "UniqueProcessId", "InheritedFromUniqueProcessId");
 

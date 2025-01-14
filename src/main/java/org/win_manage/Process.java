@@ -10,6 +10,9 @@ import com.sun.jna.Native;
 import com.sun.jna.platform.win32.*;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
+import org.win_manage.my_jna.Kernel32Lib;
+import org.win_manage.my_jna.MyWinNT;
+import org.win_manage.my_jna.NtDllLib;
 
 import java.util.ArrayList;
 
@@ -61,7 +64,7 @@ public class Process {
         Kernel32.INSTANCE.ProcessIdToSessionId(pid, session);
         return session.getValue();
     }
-    private static String getExe(int processId) {
+    public static String getExe(int processId) {
         WinNT.HANDLE processHandle = null;
         String exe = "";
         try {

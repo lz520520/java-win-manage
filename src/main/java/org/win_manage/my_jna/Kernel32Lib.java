@@ -3,7 +3,7 @@
  * @date 2024/12/19 15:39
  */
 
-package org.win_manage;
+package org.win_manage.my_jna;
 
 
 import com.sun.jna.Memory;
@@ -17,7 +17,7 @@ import com.sun.jna.win32.W32APIOptions;
 import java.nio.charset.Charset;
 
 public class Kernel32Lib {
-    public static IKernel32 INSTANCE = (IKernel32) Native.loadLibrary("kernel32.dll", IKernel32.class, W32APIOptions.UNICODE_OPTIONS);
+    public static IKernel32 INSTANCE = Native.loadLibrary("kernel32.dll", IKernel32.class, W32APIOptions.UNICODE_OPTIONS);
 
     public static String readProcessString(WinNT.HANDLE processHandle, Pointer baseAddress, int length) {
         Pointer bufferPointer = new Memory(length);
@@ -30,7 +30,9 @@ public class Kernel32Lib {
     }
 
 
-    static interface IKernel32 extends StdCallLibrary {
+    public static interface IKernel32 extends StdCallLibrary {
+        boolean VerifyVersionInfoW(WinNT.OSVERSIONINFOEX lpVersionInformation, int dwTypeMask, long dwlConditionMask);
+        long VerSetConditionMask(long conditionMask, int typeMask, byte condition);
         WinNT.HANDLE CreateToolhelp32Snapshot(WinDef.DWORD dwFlags, WinDef.DWORD th32ProcessID);
         boolean Process32First(WinNT.HANDLE hsnapshot, Tlhelp32.PROCESSENTRY32 lppe);
         boolean Process32Next(WinNT.HANDLE hSnapshot, Tlhelp32.PROCESSENTRY32 lppe);
