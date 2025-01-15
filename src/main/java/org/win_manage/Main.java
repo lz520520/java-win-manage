@@ -1,6 +1,9 @@
 package org.win_manage;
 
 
+import org.win_manage.os.linux.Process;
+import org.win_manage.os.linux.ProcessInfo;
+
 import java.util.ArrayList;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or

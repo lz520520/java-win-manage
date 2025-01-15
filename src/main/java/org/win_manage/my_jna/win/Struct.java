@@ -2,12 +2,12 @@
  * Copyright 2022 The OSHI Project Contributors
  * SPDX-License-Identifier: MIT
  */
-package org.win_manage.my_jna;
+package org.win_manage.my_jna.win;
 
-import org.win_manage.my_jna.IPHlpAPI.MIB_IFROW;
-import org.win_manage.my_jna.IPHlpAPI.MIB_IF_ROW2;
-import org.win_manage.my_jna.IPHlpAPI.MIB_TCPSTATS;
-import org.win_manage.my_jna.IPHlpAPI.MIB_UDPSTATS;
+import org.win_manage.my_jna.win.IPHlpAPI.MIB_IFROW;
+import org.win_manage.my_jna.win.IPHlpAPI.MIB_IF_ROW2;
+import org.win_manage.my_jna.win.IPHlpAPI.MIB_TCPSTATS;
+import org.win_manage.my_jna.win.IPHlpAPI.MIB_UDPSTATS;
 import com.sun.jna.platform.win32.Pdh.PDH_RAW_COUNTER;
 import com.sun.jna.platform.win32.Psapi.PERFORMANCE_INFORMATION;
 import com.sun.jna.platform.win32.SetupApi.SP_DEVICE_INTERFACE_DATA;

@@ -3,7 +3,7 @@
  * @date 2024/12/19 16:53
  */
 
-package org.win_manage.my_jna;
+package org.win_manage.my_jna.win;
 
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;

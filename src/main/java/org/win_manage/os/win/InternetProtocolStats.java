@@ -3,7 +3,7 @@
  * @date 2025/1/14 11:29
  */
 
-package org.win_manage.os;
+package org.win_manage.os.win;
 
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.Kernel32;

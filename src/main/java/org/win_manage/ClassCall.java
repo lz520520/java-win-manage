@@ -11,12 +11,12 @@ import java.util.HashMap;
 
 public class ClassCall {
     public static void main(String[] args) throws Exception {
-        getConns();
+        getProcesses();
     }
 
     static void getConns()  throws Exception {
         HashMap result = new HashMap();
-        Class netstatClazz = Class.forName("org.win_manage.Netstat");
+        Class netstatClazz = Class.forName("org.win_manage.os.win.Netstat");
         ArrayList infos = (ArrayList) netstatClazz.getMethod("getNetstat").invoke(null);
         for (int i = 0; i < infos.size(); i++) {
             Object info = infos.get(i);
@@ -30,9 +30,9 @@ public class ClassCall {
         System.out.println(result);
     }
 
-    void getProcesses()  throws Exception {
+    static void getProcesses()  throws Exception {
         HashMap result = new HashMap();
-        Class ProcessClazz = Class.forName("org.win_manage.Process");
+        Class ProcessClazz = Class.forName("org.win_manage.os.win.Process");
         ArrayList processes = (ArrayList) ProcessClazz.getMethod("getProcesses").invoke(null);
         for (int i = 0; i < processes.size(); i++) {
             Object process = processes.get(i);

@@ -3,23 +3,22 @@
  * @date 2025/1/14 10:31
  */
 
-package org.win_manage;
+package org.win_manage.os.win;
 
 
 import com.sun.jna.Memory;
 import com.sun.jna.platform.win32.WinError;
-import org.win_manage.my_jna.*;
-import org.win_manage.os.InternetProtocolStats;
+import org.win_manage.my_jna.win.*;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.win_manage.my_jna.IPHlpAPI.AF_INET;
-import static org.win_manage.my_jna.IPHlpAPI.AF_INET6;
-import static org.win_manage.my_jna.IPHlpAPI.UDP_TABLE_CLASS.UDP_TABLE_OWNER_PID;
-import static org.win_manage.my_jna.MyWinNT.TCP_TABLE_OWNER_PID_ALL;
+import static org.win_manage.my_jna.win.IPHlpAPI.AF_INET;
+import static org.win_manage.my_jna.win.IPHlpAPI.AF_INET6;
+import static org.win_manage.my_jna.win.IPHlpAPI.UDP_TABLE_CLASS.UDP_TABLE_OWNER_PID;
+import static org.win_manage.my_jna.win.MyWinNT.TCP_TABLE_OWNER_PID_ALL;
 
 
 public class Netstat {

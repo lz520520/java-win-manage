@@ -3,7 +3,7 @@
  * @date 2025/1/14 10:38
  */
 
-package org.win_manage;
+package org.win_manage.os.win;
 
 public class NetstatInfo {
     public int pid;

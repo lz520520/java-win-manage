@@ -21,7 +21,7 @@
  * A copy is also included in the downloadable source code package
  * containing JNA, in file "AL2.0".
  */
-package org.win_manage.my_jna;
+package org.win_manage.my_jna.win;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;

@@ -3,16 +3,16 @@
  * @date 2024/12/19 15:38
  */
 
-package org.win_manage;
+package org.win_manage.os.win;
 
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.*;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
-import org.win_manage.my_jna.Kernel32Lib;
-import org.win_manage.my_jna.MyWinNT;
-import org.win_manage.my_jna.NtDllLib;
+import org.win_manage.my_jna.win.Kernel32Lib;
+import org.win_manage.my_jna.win.MyWinNT;
+import org.win_manage.my_jna.win.NtDllLib;
 
 import java.util.ArrayList;
 

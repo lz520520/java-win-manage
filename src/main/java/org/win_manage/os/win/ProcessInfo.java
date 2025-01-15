@@ -3,7 +3,7 @@
  * @date 2024/12/19 18:41
  */
 
-package org.win_manage;
+package org.win_manage.os.win;
 
 public class ProcessInfo {
     public int pid;

@@ -3,7 +3,7 @@
  * @date 2025/1/14 15:34
  */
 
-package org.win_manage.my_jna;
+package org.win_manage.my_jna.win;
 
 import java.math.BigInteger;
 import java.net.InetAddress;

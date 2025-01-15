@@ -2,7 +2,7 @@
  * Copyright 2022 The OSHI Project Contributors
  * SPDX-License-Identifier: MIT
  */
-package org.win_manage.my_jna;
+package org.win_manage.my_jna.win;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.platform.win32.BaseTSD.ULONG_PTRByReference;
