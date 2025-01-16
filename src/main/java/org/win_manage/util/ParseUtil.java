@@ -3,7 +3,7 @@
  * @date 2025/1/14 15:34
  */
 
-package org.win_manage.my_jna.win;
+package org.win_manage.util;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
@@ -14,7 +14,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.nio.charset.StandardCharsets.*;
+import static org.win_manage.util.StandardCharsets.US_ASCII;
+import static org.win_manage.util.StandardCharsets.UTF_8;
+
 
 public final class ParseUtil {
 

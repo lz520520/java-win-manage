@@ -7,9 +7,13 @@ package org.win_manage.os.win;
 
 
 import com.sun.jna.Memory;
-import com.sun.jna.platform.win32.WinError;
+import com.sun.jna.Native;
+import com.sun.jna.platform.win32.*;
 import org.win_manage.my_jna.win.*;
+import org.win_manage.util.InternetProtocolStats;
+import org.win_manage.util.ParseUtil;
 
+import java.io.File;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -125,7 +129,7 @@ public class Netstat {
                 conns.add(new InternetProtocolStats.IPConnection("tcp4", ParseUtil.parseIntToIP(row.dwLocalAddr),
                         ParseUtil.bigEndian16ToLittleEndian(row.dwLocalPort), ParseUtil.parseIntToIP(row.dwRemoteAddr),
                         ParseUtil.bigEndian16ToLittleEndian(row.dwRemotePort), stateLookup(row.dwState), 0, 0,
-                        row.dwOwningPid));
+                        row.dwOwningPid, getExe(row.dwOwningPid)));
             }
             buf.clear();
         }finally {
@@ -160,7 +164,7 @@ public class Netstat {
                 IPHlpAPI.MIB_TCP6ROW_OWNER_PID row = tcpTable.table[i];
                 conns.add(new InternetProtocolStats.IPConnection("tcp6", row.LocalAddr, ParseUtil.bigEndian16ToLittleEndian(row.dwLocalPort),
                         row.RemoteAddr, ParseUtil.bigEndian16ToLittleEndian(row.dwRemotePort), stateLookup(row.State),
-                        0, 0, row.dwOwningPid));
+                        0, 0, row.dwOwningPid,getExe(row.dwOwningPid)));
             }
             // TODO
             buf.clear();
@@ -195,7 +199,7 @@ public class Netstat {
                 IPHlpAPI.MIB_UDPROW_OWNER_PID row = udpTable.table[i];
                 conns.add(new InternetProtocolStats.IPConnection("udp4", ParseUtil.parseIntToIP(row.dwLocalAddr),
                         ParseUtil.bigEndian16ToLittleEndian(row.dwLocalPort), new byte[0], 0, InternetProtocolStats.TcpState.NONE, 0, 0,
-                        row.dwOwningPid));
+                        row.dwOwningPid,getExe(row.dwOwningPid)));
             }
             buf.clear();
         }finally {
@@ -228,7 +232,7 @@ public class Netstat {
                 IPHlpAPI.MIB_UDP6ROW_OWNER_PID row = udpTable.table[i];
                 conns.add(
                         new InternetProtocolStats.IPConnection("udp6", row.ucLocalAddr, ParseUtil.bigEndian16ToLittleEndian(row.dwLocalPort),
-                                new byte[0], 0, InternetProtocolStats.TcpState.NONE, 0, 0, row.dwOwningPid));
+                                new byte[0], 0, InternetProtocolStats.TcpState.NONE, 0, 0, row.dwOwningPid,getExe(row.dwOwningPid)));
             }
         }finally {
             if (sizePtr != null) {
@@ -293,6 +297,33 @@ public class Netstat {
             infos.add(info);
         }
         return infos;
+    }
+    public static String getExe(int processId) {
+        if (processId <= 0) {
+            return "";
+        }
+        WinNT.HANDLE processHandle = null;
+        String exe = "";
+        try {
+            processHandle = Kernel32.INSTANCE.OpenProcess(
+                    WinNT.PROCESS_QUERY_INFORMATION , false, processId);
+            if (processHandle == null) {
+                throw new Exception("OpenProcess");
+            }
+            char[] path = new char[WinDef.MAX_PATH];
+            Psapi.INSTANCE.GetModuleFileNameExW(processHandle, null, path, path.length);
+            exe = Native.toString(path);
+            exe = new File(exe).getName();
+        }catch (Exception ignored) {
+
+        }finally {
+            if (processHandle != null) {
+                Kernel32.INSTANCE.CloseHandle(processHandle);
+            }
+        }
+
+
+        return exe;
     }
     public static void main(String[] args) throws Exception {
         ArrayList infos = getNetstat();

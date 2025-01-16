@@ -3,17 +3,12 @@
  * @date 2025/1/14 11:29
  */
 
-package org.win_manage.os.win;
+package org.win_manage.util;
 
-import com.sun.jna.Native;
-import com.sun.jna.platform.win32.Kernel32;
-import com.sun.jna.platform.win32.Psapi;
-import com.sun.jna.platform.win32.WinDef;
-import com.sun.jna.platform.win32.WinNT;
+
 import org.win_manage.annotation.concurrent.Immutable;
 import org.win_manage.annotation.concurrent.ThreadSafe;
 
-import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -293,7 +288,7 @@ public interface InternetProtocolStats {
         private String name;
 
         public IPConnection(String type, byte[] localAddress, int localPort, byte[] foreignAddress, int foreignPort,
-                            TcpState state, int transmitQueue, int receiveQueue, int owningProcessId) {
+                            TcpState state, int transmitQueue, int receiveQueue, int owningProcessId, String name) {
             this.type = type;
             this.localAddress = Arrays.copyOf(localAddress, localAddress.length);
             this.localPort = localPort;
@@ -303,9 +298,8 @@ public interface InternetProtocolStats {
             this.transmitQueue = transmitQueue;
             this.receiveQueue = receiveQueue;
             this.owningProcessId = owningProcessId;
-            if (this.owningProcessId > 0) {
-               this.name =  new File(getExe(owningProcessId)).getName();
-            }
+            this.name =  name;
+
         }
 
         /**
@@ -316,29 +310,7 @@ public interface InternetProtocolStats {
         public String getType() {
             return type;
         }
-        public static String getExe(int processId) {
-            WinNT.HANDLE processHandle = null;
-            String exe = "";
-            try {
-                processHandle = Kernel32.INSTANCE.OpenProcess(
-                        WinNT.PROCESS_QUERY_INFORMATION , false, processId);
-                if (processHandle == null) {
-                    throw new Exception("OpenProcess");
-                }
-                char[] path = new char[WinDef.MAX_PATH];
-                Psapi.INSTANCE.GetModuleFileNameExW(processHandle, null, path, path.length);
-                exe = Native.toString(path);
-            }catch (Exception ignored) {
 
-            }finally {
-                if (processHandle != null) {
-                    Kernel32.INSTANCE.CloseHandle(processHandle);
-                }
-            }
-
-
-            return exe;
-        }
         /**
          * Gets the local address. For IPv4 addresses this is a 4-byte array. For IPv6 addresses this is a 16-byte
          * array.
